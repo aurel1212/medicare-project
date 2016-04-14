@@ -45,8 +45,8 @@ def fit_model(X_train, model_columns, bootstrap=False, max_features=1.0,
     --------
     """
     model = IsolationForest(bootstrap=bootstrap, max_features=max_features,
-                            max_samples=max_samples, n_estimators=n_estimators, n_jobs=-1,
-                            random_state=13, verbose=True)
+                            max_samples=max_samples, n_estimators=n_estimators,
+                            n_jobs=-1, random_state=13, verbose=True)
     model.fit(X_train[model_columns])
 
     return model
