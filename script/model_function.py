@@ -68,7 +68,7 @@ def check_labels(label_df, test_df, model_columns, model):
     Examples
     --------
     """
-    test_df['prediction'] = model.predict(test_df)
+    test_df['prediction'] = model.predict(test_df[model_columns])
     test_df['indicted'] = [1 if row in list(label_df['npi']) else 0 for row in test_df['npi']]
 
     return test_df
