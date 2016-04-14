@@ -25,3 +25,26 @@ SELECT 	npi
 		, nonlis_claim_count
 		, nonlis_claim_cost
 FROM npi_13; 
+
+
+# Join indictments data with NPI lookup to get the NPI out
+
+SELECT n.npi
+	, indict.first_name
+	, indict.last_name
+	, indict.npi_status
+FROM indictments_2013 indict
+	, npi_name n
+WHERE lower(indict.first_name) = lower(n.providerfirstname)
+AND lower(indict.last_name) = lower(n.providerlastnamelegalname);
+
+# Also incorporating state on join, previous join had numerous duplicates
+SELECT n.npi
+            , indict.first_name
+            , indict.last_name
+            , indict.npi_status
+        FROM indictments_2013 indict
+            , npi_name n
+        WHERE lower(indict.first_name) = lower(n.providerfirstname)
+        AND lower(indict.last_name) = lower(n.providerlastnamelegalname)
+        AND lower(indict.state) = lower(n.providerbusinessmailingaddressstatename);
