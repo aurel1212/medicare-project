@@ -49,7 +49,7 @@ def fit_model(X_train, model_columns, bootstrap=False, max_features=1.0,
 
     return model
 
-def check_labels(label_df, test_df, model):
+def check_labels(label_df, test_df, model_columns, model):
     """Returns list of doctors/npi that are found as outliers.
 
     Parameters
