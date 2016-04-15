@@ -154,15 +154,15 @@ def linear_impute(col_null_name, col_model_name, df):
 
 def feature_engineer_drug_agg(df):
     #total cost per claim
-    df['tot_cost_per_claim'] = df['total_drug_cost'] / df['total_claim_count']
+    df['tot_cost_per_claim'] = df['total_drug_cost']. / df['total_claim_count']
     #total cost per day
-    df['total_cost_per_day'] = df['total_drug_cost'] / df['total_day_supply']
+    df['total_cost_per_day'] = df['total_drug_cost']. / df['total_day_supply']
     #generic to brand claim count
-    df['generic_brand_count_ratio'] = df['generic_claim_count'] / (df['brand_claim_count']+df['generic_claim_count']
+    df['generic_brand_count_ratio'] = df['generic_claim_count']. / (df['brand_claim_count']+df['generic_claim_count']
     #generic to brand claim cost
-    df['generic_brand_cost_ratio'] = df['generic_claim_cost'] / (df['brand_claim_cost']+df['generic_claim_cost'])
+    df['generic_brand_cost_ratio'] = df['generic_claim_cost']. / (df['brand_claim_cost']+df['generic_claim_cost'])
     #brand to total claim ratio
-    df['brand_total_claim_ratio'] = df['brand_claim_count'] / df['total_claim_count']
+    df['brand_total_claim_ratio'] = df['brand_claim_count']. / df['total_claim_count']
     #replace infinite with 1
     #df.replace(np.inf, 1, inplace=True)
 
