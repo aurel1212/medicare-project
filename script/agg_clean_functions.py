@@ -1,5 +1,8 @@
 import pandas as pd 
 import numpy as np 
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
 
 def norm_agg_payments(df):
     """
@@ -56,8 +59,7 @@ def norm_agg_payments(df):
         df['{}_norm'.format(name)] = df[name].divide(df['num_unique_bene']) 
 
 def create_health_set(df_payments, df_county_ranks):
-    pay_cols = ['county_fips',
-                'num_hcpcs_norm',
+    pay_cols = ['num_hcpcs_norm',
                 'num_services_norm',
                 'total_submitted_charges_norm',
                 'total_medicare_payment_amt_norm',
@@ -95,3 +97,39 @@ def create_health_set(df_payments, df_county_ranks):
                     'Uninsured_% Uninsured',
                     'Preventable hospital stays (Ambulatory Care Sensitive Conditions)_ACSC Rate'
                     ]
+    df_agg.reset_index(level=['county'], inplace=True)
+
+    return pd.merge(df_payments[pay_cols], df_county_ranks[ranks_cols], left_index=True, right_index=True)
+
+def cluster(df, num_clusters=4):
+    cluster_cols = [
+                    'num_asthma_norm',
+                    'num_alzheimers_dementia_norm',
+                    'num_artrial_fibrillation_norm',
+                    'num_cancer_norm',
+                    'num_chronic_obstructive_pulmonary_norm',
+                    'num_depression_norm',
+                    'num_diabetes_norm',
+                    'num_heart_failure_norm',
+                    'num_hypertension_norm',
+                    'num_ischemic_heart_norm',
+                    'num_osteoporosis_norm',
+                    'num_rheumatoid_arthritis_osteoarthirtis_norm',
+                    'num_schizophrenia_psychotic_norm',
+                    'num_stroke_norm',
+                    'total_hcc_risk_norm',
+                    'Poor or fair health_% Fair/Poor',
+                    'Poor mental health days_Mentally Unhealthy Days',
+                    'Smokers_% Smokers',
+                    'Adult obesity_% Obese',
+                    'Physical inactivity_% Physically Inactive',
+                    'Excessive Drinking_% Excessive Drinking',
+                    'Uninsured_% Uninsured',
+                    'Preventable hospital stays (Ambulatory Care Sensitive Conditions)_ACSC Rate'
+                    ]
+    scale = StandardScaler()
+    df_scale = scale.fit_transform(df[cluster_cols])
+    km_mod = KMeans(n_clusters = num_clusters, n_jobs=-1, random_state=13, verbose=2)
+    preds = km_mod.fit_predict(df_scale)
+
+    return km_mod, preds
