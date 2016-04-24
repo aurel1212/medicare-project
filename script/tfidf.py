@@ -53,7 +53,7 @@ def process_text(text, stem=True):
  
     return tokens 
 
-def perform_tfidf(npi_list, tfidf=True):
+def perform_tfidf(npi_list, tfidf=False):
     """ Runs TFIDF process """
     npi_dict = get_psql(npi_list)
     corpus = []
@@ -64,11 +64,11 @@ def perform_tfidf(npi_list, tfidf=True):
     #corpus = process_text(corpus)
     
     if tfidf:
-        vectorizer = TfidfVectorizer(stop_words='english')
+        vectorizer = TfidfVectorizer(stop_words='english', ngram_range=(1,2), max_features=400)
         tfidf_model = vectorizer.fit_transform(corpus)
         return tfidf_model, vectorizer, corpus
     else:
-        vectorizer = CountVectorizer(stop_words='english')
+        vectorizer = CountVectorizer(stop_words='english', ngram_range=(1,2), max_features=400)
         count_model = vectorizer.fit_transform(corpus)
         return count_model, vectorizer, corpus
 
