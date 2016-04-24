@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 
-def graph_3d(pca_vector, df):
+def graph_3d(pca_vector, df, color):
     """
     Example
     -------
@@ -16,13 +16,12 @@ def graph_3d(pca_vector, df):
     xs = pca_vector[:,0]
     ys = pca_vector[:,1]
     zs = pca_vector[:,2]
-    c = df['indicted']
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.set_xlabel('x')
     ax.set_ylabel('y')
     ax.set_zlabel('z')
-    ax.scatter(xs, ys, zs, c=c, alpha=.3)
+    ax.scatter(xs, ys, zs, c=color, alpha=.3)
 
     return ax
