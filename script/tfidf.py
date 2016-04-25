@@ -72,4 +72,7 @@ def perform_tfidf(npi_list, tfidf=False):
         count_model = vectorizer.fit_transform(corpus)
         return count_model, vectorizer, corpus
 
-def perform_count(npi_list):
+def view_features(matrix, vectorizer, num_features):
+    index = np.argsort(np.sum(matrix.toarray(), axis=0))[::-1][:num_features]
+    return np.array(vectorizer.get_feature_names())[index]
+
