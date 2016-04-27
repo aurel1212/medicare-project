@@ -1,4 +1,5 @@
-""" Takes a list of NPI.
+""" 
+Takes a list of NPI.
 Pulls from psql the service codes and performs tfidf, returning importance vector
 """
 import pandas as pd
@@ -53,22 +54,19 @@ def process_text(text, stem=True):
  
     return tokens 
 
-def perform_tfidf(npi_list, tfidf=False):
+def perform_tfidf(npi_list, tfidf=False, ngrams=2):
     """ Runs TFIDF process """
     npi_dict = get_psql(npi_list)
     corpus = []
     for dr in npi_list:
         corpus.append(flatten_dic(npi_dict[dr]))
-
-    #corpus = [desc for c in corpus for desc in c]
-    #corpus = process_text(corpus)
     
     if tfidf:
-        vectorizer = TfidfVectorizer(stop_words='english', ngram_range=(1,2), max_features=400)
+        vectorizer = TfidfVectorizer(stop_words='english', ngram_range=(1,ngrams), max_features=400)
         tfidf_model = vectorizer.fit_transform(corpus)
         return tfidf_model, vectorizer, corpus
     else:
-        vectorizer = CountVectorizer(stop_words='english', ngram_range=(1,2), max_features=400)
+        vectorizer = CountVectorizer(stop_words='english', ngram_range=(1,ngrams), max_features=400)
         count_model = vectorizer.fit_transform(corpus)
         return count_model, vectorizer, corpus
 
