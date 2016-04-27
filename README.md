@@ -11,6 +11,8 @@ Data were obtained for the calendar year 2013 from www.cms.gov. The data used in
 ## EDA and Methodology
 The data were aggregated to the county level to explore regional differences in % of beneficiaries with diseases and their relation to cost. This was accomplished with PCA and KMeans clustering. Other demographic trends were explored in their ability to predict rates of disease and/or costs. 
 
+![Alt text](https://github.com/d-tang/medicare-project/blob/county_eda/images/county03.png)
+
 One of the challenges in modeling this dataset was in the disparate classes of information being presented. General practicioners were being compared to oncologists. Physicians with one Medicare patient were being compared to physicians with hundreds (not all of a physician's patients need be Medicare beneficiaries). 
 
 To deal with the latter issue, most numeric data were normalized to be per beneficiary (or charge/service, etc...). However, there may be information in the raw totals that is simply lost with this type of normalization. For the former, the dataset was condensed to examine the charges from one specific discipline, oncologists. 
