@@ -17,4 +17,4 @@ To deal with the latter issue, most numeric data were normalized to be per benef
 
 There are many reasons for costs to vary (per beneficiary) amongst oncologists. Among them are: 1) the number of treatments, 2) the type of treatments, and 3) the type of disease (possibly encompassed by type of treatment). The number of treatments was readily available in the dataset. To explore differences in the type of treatment, each physician's performed services was aggregated and the physicians was split into a non-outlier and outlier group. TFIDF (2-gram) was performed on the list of services to determine differences in the order of feature importance. 
 
-
+![Alt text](https://github.com/d-tang/medicare-project/blob/county_eda/cancer_charge_hist.png)
